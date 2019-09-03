@@ -88,7 +88,7 @@ func (p *FileBackend) flushFile() {
 }
 
 func (p *FileBackend) mustFileExist() {
-	timeStr := time.Now().Format(".20060102")
+	timeStr := time.Now().Format(".2006010215")
 	filePath := path.Join(p.dir, p.name+timeStr)
 	if filePath == p.filePath {
 		return
