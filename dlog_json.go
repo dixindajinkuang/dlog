@@ -25,7 +25,7 @@ func SetTopic(topic string, absolutePath string) {
 	if len(absolutePath) > 0 {
 		dir = absolutePath
 	}
-	file, err := NewFileBackend(dir, topic+".log_json")
+	file, err := NewFileBackend(dir, topic+".log_json_std")
 	if err != nil {
 		panic(err)
 	}
