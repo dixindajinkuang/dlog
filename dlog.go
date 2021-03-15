@@ -2,8 +2,8 @@ package dlog
 
 import (
 	"fmt"
-	"github.com/dajinkuang/go-common/gls"
 	"github.com/dajinkuang/util"
+	gls2 "github.com/dajinkuang/util/gls"
 	"io"
 	"path"
 	"runtime"
@@ -51,7 +51,7 @@ func (p *dLog) logStr(kv ...interface{}) string {
 	_, file, line, _ := runtime.Caller(3)
 	file = p.getFilePath(file)
 	localMachineIPV4, _ := util.LocalMachineIPV4()
-	ctx := gls.GlsContext()
+	ctx, _ := gls2.GlsContext()
 	pre := []interface{}{"local_machine_ipv4", localMachineIPV4, TraceId, ValueFromOM(ctx, TraceId),
 		SpanId, ValueFromOM(ctx, SpanId), ParentId, ValueFromOM(ctx, ParentId), UserRequestIp, ValueFromOM(ctx, UserRequestIp)}
 	kv = append(pre, kv...)

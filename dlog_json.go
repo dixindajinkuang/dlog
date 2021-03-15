@@ -4,8 +4,8 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
-	"github.com/dajinkuang/go-common/gls"
 	"github.com/dajinkuang/util"
+	utilGls "github.com/dajinkuang/util/gls"
 	"io"
 	"path"
 	"runtime"
@@ -115,12 +115,19 @@ func (p *dJsonLog) logJson(v Lvl, kv ...interface{}) (err error) {
 	om.Set("line", line)
 	localMachineIPV4, _ := util.LocalMachineIPV4()
 	om.Set("local_machine_ipv4", localMachineIPV4)
-	ctx := gls.GlsContext()
-	om.Set(TraceId, ValueFromOM(ctx, TraceId))
-	om.Set(SpanId, ValueFromOM(ctx, SpanId))
-	om.Set(ParentId, ValueFromOM(ctx, ParentId))
-	om.Set(UserRequestIp, ValueFromOM(ctx, UserRequestIp))
-	om.AddVals(FromContext(ctx))
+	ctx, ctxIsDefault := utilGls.GlsContext()
+	if !ctxIsDefault {
+		om.Set(TraceId, ValueFromOM(ctx, TraceId))
+		om.Set(SpanId, ValueFromOM(ctx, SpanId))
+		om.Set(ParentId, ValueFromOM(ctx, ParentId))
+		om.Set(UserRequestIp, ValueFromOM(ctx, UserRequestIp))
+		om.AddVals(FromContext(ctx))
+	} else {
+		traceID, pSpanID, spanID := utilGls.GetTraceInfoFromGls()
+		om.Set(TraceId, traceID)
+		om.Set(SpanId, spanID)
+		om.Set(ParentId, pSpanID)
+	}
 	if len(kv)%2 != 0 {
 		kv = append(kv, "unknown")
 	}
