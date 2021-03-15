@@ -123,7 +123,7 @@ func (p *dJsonLog) logJson(v Lvl, kv ...interface{}) (err error) {
 		om.Set(UserRequestIp, ValueFromOM(ctx, UserRequestIp))
 		om.AddVals(FromContext(ctx))
 	} else {
-		traceID, pSpanID, spanID := utilGls.GetTraceInfoFromGls()
+		traceID, pSpanID, spanID := utilGls.GetOpenTracingFromGls()
 		om.Set(TraceId, traceID)
 		om.Set(SpanId, spanID)
 		om.Set(ParentId, pSpanID)
