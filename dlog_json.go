@@ -117,16 +117,16 @@ func (p *dJsonLog) logJson(v Lvl, kv ...interface{}) (err error) {
 	om.Set("local_machine_ipv4", localMachineIPV4)
 	ctx, ctxIsDefault := utilGls.GlsContext()
 	if !ctxIsDefault {
-		om.Set(TraceId, ValueFromOM(ctx, TraceId))
-		om.Set(SpanId, ValueFromOM(ctx, SpanId))
-		om.Set(ParentId, ValueFromOM(ctx, ParentId))
-		om.Set(UserRequestIp, ValueFromOM(ctx, UserRequestIp))
+		om.Set(TraceID, ValueFromOM(ctx, TraceID))
+		om.Set(SpanID, ValueFromOM(ctx, SpanID))
+		om.Set(ParentID, ValueFromOM(ctx, ParentID))
+		om.Set(UserRequestIP, ValueFromOM(ctx, UserRequestIP))
 		om.AddVals(FromContext(ctx))
 	} else {
 		traceID, pSpanID, spanID := utilGls.GetOpenTracingFromGls()
-		om.Set(TraceId, traceID)
-		om.Set(SpanId, spanID)
-		om.Set(ParentId, pSpanID)
+		om.Set(TraceID, traceID)
+		om.Set(SpanID, spanID)
+		om.Set(ParentID, pSpanID)
 	}
 	if len(kv)%2 != 0 {
 		kv = append(kv, "unknown")

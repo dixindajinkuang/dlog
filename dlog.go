@@ -52,8 +52,8 @@ func (p *dLog) logStr(kv ...interface{}) string {
 	file = p.getFilePath(file)
 	localMachineIPV4, _ := util.LocalMachineIPV4()
 	ctx, _ := gls2.GlsContext()
-	pre := []interface{}{"local_machine_ipv4", localMachineIPV4, TraceId, ValueFromOM(ctx, TraceId),
-		SpanId, ValueFromOM(ctx, SpanId), ParentId, ValueFromOM(ctx, ParentId), UserRequestIp, ValueFromOM(ctx, UserRequestIp)}
+	pre := []interface{}{"local_machine_ipv4", localMachineIPV4, TraceID, ValueFromOM(ctx, TraceID),
+		SpanID, ValueFromOM(ctx, SpanID), ParentID, ValueFromOM(ctx, ParentID), UserRequestIP, ValueFromOM(ctx, UserRequestIP)}
 	kv = append(pre, kv...)
 	if len(kv)%2 != 0 {
 		kv = append(kv, "unknown")
